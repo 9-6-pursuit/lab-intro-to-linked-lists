@@ -57,6 +57,13 @@ describe("Linked Lists", () => {
     expect(numList.getKth(1).data).toEqual(0);
   });
 
+
+  // test("Retrieve kth element", () => {
+  //   console.log("Linked List Contents:", numList.toArray()); // Debugging statement
+  //   expect(numList.getKth(1).data).toEqual(10); // Updated expectation
+  // });
+  
+
   test("Retrieve kth from last element", () => {
     expect(numList.getKthToLast(1).data).toEqual(2);
   });
