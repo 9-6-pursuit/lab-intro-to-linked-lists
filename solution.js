@@ -69,9 +69,6 @@ class LinkedList {
 
   getLast() {
     let node = this.head;
-    if (!this.head) return null;{   //optional
-        this.head = head;
-    }
     while (node.next) {
         node = node.next;
     }
@@ -113,12 +110,20 @@ class LinkedList {
     this.head = null;
   }
 
-  toArrayconvert (){
-    
+  toArray(){
+    let arr=[];
+    let item = this.head;
+    while (item){
+      arr.push(item.data);
+      item = item.next
+    }
+    return arr;
   }
 
-  removeDuplicates(){
-
+  containsDuplicates(){
+    const arr = this.toArray();
+    const unique = [...new Set(arr)];
+    return arr.length !== unique.length
   }
 }
 
