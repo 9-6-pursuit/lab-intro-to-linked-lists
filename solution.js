@@ -59,7 +59,17 @@ class LinkedList {
       return this.head ? this.head.data : null;    
     }
 
-    
+    getLast(){
+      if(!this.head) {
+        return null;
+      }
+
+      let current =this.head;
+      while(current.next){
+        current = current.next;
+      }
+      return current.data;
+    }
 }
 
 module.exports = {
