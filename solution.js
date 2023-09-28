@@ -16,6 +16,8 @@ class LinkedList {
     const newNode = new Node(data);
     if(!this.head) {
       this.head = newNode;
+    } else {
+      let current = this.head;
     }
   }
 
