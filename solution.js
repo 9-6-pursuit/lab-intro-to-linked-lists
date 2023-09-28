@@ -54,6 +54,12 @@ class LinkedList {
         current = current.next;
       }
     }
+
+    getFirst(){
+      return this.head ? this.head.data : null;    
+    }
+
+    
 }
 
 module.exports = {
