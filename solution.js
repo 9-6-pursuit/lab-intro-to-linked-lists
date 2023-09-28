@@ -44,6 +44,15 @@ class LinkedList {
         this.head = this.head.next;
         return;
       }
+
+      let current = this.head;
+      while (current.next) {
+        if(current.next.data === key){
+          current.next = current.next.next;
+          return;
+        }
+        current = current.next;
+      }
     }
 }
 
