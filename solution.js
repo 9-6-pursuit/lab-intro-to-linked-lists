@@ -18,6 +18,10 @@ class LinkedList {
       this.head = newNode;
     } else {
       let current = this.head;
+      while (current.next) {
+        current = current.next;
+      }
+      current.next = newNode;
     }
   }
 
