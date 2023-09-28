@@ -25,6 +25,16 @@ class LinkedList {
     }
   }
 
+    size(){
+      let count = 0;
+      let current = this.head;
+      while(current){
+        count++
+        current = current.next
+      }
+      return count;
+    }
+
 }
 
 module.exports = {
