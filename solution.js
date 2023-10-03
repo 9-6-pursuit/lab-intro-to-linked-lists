@@ -1,7 +1,7 @@
 const { nums, words } = require("./data/data.js");
 
 class Node {
-  constructor(data) {
+  constructor(data = null) {
     this.data = data;
     this.next = null;
   }
@@ -23,20 +23,23 @@ class LinkedList {
   }
 
   delete(data) {
-    let node = this.head;
-    let count = 0;
-    while (node.data !== data && node.next) {
-      count++;
-      node = node.next;
+    if (!this.head) {
+      return; // List is empty
     }
 
-    let foundNode = node;
-    node = this.head;
-    for (let i = 1; i < count; i++) {
-      node = node.next;
+    if (this.head.data === data) {
+      this.head = this.head.next;
+      return;
     }
 
-    node.next = foundNode.next;
+    let current = this.head;
+    while (current.next) {
+      if (current.next.data === data) {
+        current.next = current.next.next;
+        return;
+      }
+      current = current.next;
+    }
   }
 
   size() {
@@ -71,7 +74,7 @@ class LinkedList {
     }
     return node;
   }
-
+  
   getKth(k) {
     let node = this.head;
     for (let i = k - 1; i > 0; i--) {
@@ -110,19 +113,18 @@ class LinkedList {
   }
 
   containsDuplicates() {
-    let count = 0;
-    while (this.head.next !== null) {
-      let node = this.head.next;
-      while (node !== null) {
-        if (this.head.data == node.data) {
-          count++;
-          break;
+    let current = this.head;
+    while (current !== null) {
+      let runner = current.next;
+      while (runner !== null) {
+        if (current.data === runner.data) {
+          return true; // Found a duplicate
         }
-        node = node.next;
+        runner = runner.next;
       }
-      this.head = this.head.next;
+      current = current.next;
     }
-    return count === 0 ? false : true;
+    return false; // No duplicates found
   }
 }
 
