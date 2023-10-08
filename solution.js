@@ -1,142 +1,105 @@
 const { nums, words } = require("./data/data.js");
 
-// Define the Node class
 class Node {
-  constructor(data) {
-    this.data = data;
-    this.next = null;
+  constructor (data) {
+      this.data = data
+      this.next = null
   }
 }
 
-// Define the LinkedList class
 class LinkedList {
-  constructor() {
-    this.head = null;
+  constructor () {
+      this.head = null
   }
-
-  // Insert a new node at the end of the linked list
   insert(data) {
-    const newNode = new Node(data);
-    if (!this.head) {
-      this.head = newNode;
-    } else {
-      let current = this.head;
-      while (current.next) {
-        current = current.next;
-      }
-      current.next = newNode;
-    }
+    let newNode = new Node(data);
+    newNode.next = this.head;
+    this.head = newNode;
   }
-
-  // Get the size (number of nodes) of the linked list
   size() {
     let count = 0;
-    let current = this.head;
-    while (current) {
+    let node = this.head;
+    while (node) {
       count++;
-      current = current.next;
+      node = node.next;
     }
     return count;
   }
-  deleteByKey(key) {
-    if (!this.head) {
-      return;
+  search(key) {
+    let node = this.head;
+    while (node !== null && node.data !== key) {
+      node = node.next;
     }
-
-    if (this.head.data === key) {
-      this.head = this.head.next;
-      return;
-    }
-
-    let current = this.head;
-    while (current.next) {
-      if (current.next.data === key) {
-        current.next = current.next.next;
-        return;
-      }
-      current = current.next;
-    }
+    return node;
   }
-  getFirst() {
-    return this.head ? this.head.data : null;
+  clear() {
+    this.head = null;
   }
   getLast() {
-    if (!this.head) {
-      return null;
+    let node = this.head;
+    while (node.next) {
+      node = node.next;
     }
-
-    let current = this.head;
-    while (current.next) {
-      current = current.next;
-    }
-    return current.data;
+    return node;
   }
-  searchByKey(key) {
-    let current = this.head;
-    while (current) {
-      if (current.data === key) {
-        return current.data;
-      }
-      current = current.next;
+  delete(data) {
+    let node = this.head;
+    let counter = 0;
+    while (node.data !== data && node.next) {
+      counter++;
+      node = node.next;
     }
-    return null;
+    let foundNode = node;
+    node = this.head;
+    for (let i = 1; i < counter; i++) {
+      node = node.next;
+    }
+    node.next = foundNode.next;
+  }
+  getFirst() {
+    return this.head;
+  }
+  isEmpty() {
+    return !this.head;
   }
   getKth(k) {
-    if (k < 0) {
-      return null;
+    let count = 1;
+    let node = this.head;
+    while (node && count !== k) {
+        count++;
+        node = node.next;
     }
-
-    let current = this.head;
-    let count = 0;
-    while (current) {
-      if (count === k) {
-        return current.data;
-      }
-      count++;
-      current = current.next;
-    }
-    return null;
+    return node
   }
   getKthToLast(k) {
-    if (k < 0) {
-      return null;
+    let getSize = this.size();
+    let node = this.head;
+    for (let i = 1; i < getSize - k; i++) {
+        node = node.next;  
     }
-
-    let fast = this.head;
-    let slow = this.head;
-
-    // Move the fast pointer k nodes ahead
-    for (let i = 0; i < k; i++) {
-      if (fast) {
-        fast = fast.next;
-      } else {
-        return null; // k is greater than the length of the list
-      }
+    return node;
+  }
+  toArray() {
+    let arr =[];
+    let item = this.head;
+    while (item) {
+        arr.push(item.data);
+        item = item.next;
     }
-
-    // Move both pointers until the fast pointer reaches the end
-    while (fast && fast.next) {
-      fast = fast.next;
-      slow = slow.next;
-    }
-
-    return slow ? slow.data : null;
+    return arr;
   }
   containsDuplicates() {
-    const valuesSet = new Set();
-    let current = this.head;
-    while (current) {
-      if (valuesSet.has(current.data)) {
-        return true;
-      }
-      valuesSet.add(current.data);
-      current = current.next;
-    }
-    return false;
+    const arr = this.toArray();
+    const unique = [...new Set(arr)];
+    return arr.length !== unique.length;
   }
 }
+
+
+
 module.exports = {
   Node,
   LinkedList,
 };
+
 
